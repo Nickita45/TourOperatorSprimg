@@ -1,10 +1,14 @@
 package edu.buem.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
-
+@Document
 public class Discount {
 
+    @Id
     private String id;
     private String name;
     private int percentage;
