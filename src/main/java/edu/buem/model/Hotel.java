@@ -1,21 +1,18 @@
 package edu.buem.model;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-public class Voucher {
+public class Hotel {
+
     private String id;
     private String name;
-    private String idVoucher;
-
-    private LocalDateTime departureDate;
-    private int numberOfPeople;
+    private int countStars;
+    private boolean isParking;
+    private boolean isAllInclude;
+    private int countRooms;
+    private boolean isLuxury;
 
     private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    public Voucher() {
-    }
-
-
 }

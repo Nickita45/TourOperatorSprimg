@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Client {
+
     private String idClient;
     private String firstName;
     private String secondName;
@@ -12,6 +13,9 @@ public class Client {
     private String telephoneNumber;
     private LocalDateTime registrationDate;
 
+    private String description;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     public Client() {
     }
 
