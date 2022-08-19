@@ -1,4 +1,4 @@
-package edu.buem.model;
+package edu.buem.model_old;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +10,6 @@ public class VoucherManager {
 
     private Client client;
     private Voucher voucher;
-    private ClimateTypes climateTypes;
     private List<Route> routes;
     private List<Country> countries;
     private List<Hotel> hotels;

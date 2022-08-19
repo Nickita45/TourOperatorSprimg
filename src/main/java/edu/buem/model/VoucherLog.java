@@ -2,13 +2,14 @@ package edu.buem.model;
 
 import java.time.LocalDateTime;
 
-public class Voucher {
+public class VoucherLog {
     private String id;
     private String name;
     private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    private Integer number;
-    private LocalDateTime start;
+    private Voucher voucher;
+    private Country country;
+    private Client client;
 }

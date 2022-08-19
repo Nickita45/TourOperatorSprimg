@@ -1,28 +1,26 @@
 package edu.buem.controller.api;
 
-import edu.buem.model.Discount;
-import edu.buem.service.discount.impls.IDiscountServiceImpl;
+import edu.buem.model.Country;
+import edu.buem.service.country.impls.ICountryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-@RequestMapping("/api/v1/discounts")
+@RequestMapping("/api/v1/countries")
 @RestController
-public class DiscountRestController {
+public class CountryRestController {
 
     @Autowired
-    IDiscountServiceImpl service;
+    ICountryServiceImpl service;
 
     @GetMapping("/")
-    public List<Discount> showAll()
+    public List<Country> showAll()
     {
          return service.getAll();
     }
     @GetMapping("/{id}")
-    public Discount showOne(@PathVariable String id)
+    public Country showOne(@PathVariable String id)
     {
         return service.get(id);
     }
@@ -32,12 +30,12 @@ public class DiscountRestController {
         service.delete(id);
     }
     @PostMapping()
-    public Discount insertOne(@RequestBody Discount discount)
+    public Country insertOne(@RequestBody Country discount)
     {
         return service.create(discount);
     }
     @PutMapping()
-    public Discount updateOne(@RequestBody Discount discount){
+    public Country updateOne(@RequestBody Country discount){
         return service.update(discount);
     }
 }

@@ -1,4 +1,4 @@
-package edu.buem.model;
+package edu.buem.model_old;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

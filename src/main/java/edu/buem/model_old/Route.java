@@ -1,14 +1,25 @@
-package edu.buem.model;
+package edu.buem.model_old;
 
 import java.time.LocalDateTime;
 
 public class Route {
     private String id;
     private String name;
+
+    private int durationInDays;
+
+    private int cost;
+
     private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    public Route() {
+    }
 
-    private Integer cost;
-    private Integer duration;
+    public Route(String id) {
+        this.id = id;
+    }
+
+
+
 }
