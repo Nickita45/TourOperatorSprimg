@@ -62,6 +62,7 @@
         <th> CreatedAt</th>
         <th> UpdatedAt</th>
         <th> DELETE</th>
+        <th> UPDATE</th>
     </tr>
     <#list countries as item>
         <tr>
@@ -72,8 +73,9 @@
             <td>${item.climateTypes}</td>
             <td>${item.description}</td>
             <td>${item.createdAt}</td>
-            <td>${item.updatedAt}</td>
-            <td><a class="btn btn-info" href="/ui/v1/countries/del/${item.id}">Delete</a></td>
+            <td>${item.updatedAt?if_exists}</td>
+            <td><a class="btn btn-info" href="/ui/v1/countries/del/${item.id}" >Delete</a></td>
+            <td><a class="btn btn-warning" href="/ui/v1/countries/edit/${item.id}">Update</a></td>
         </tr>
     </#list>
 </table>
@@ -91,17 +93,32 @@
         <span class="close">&times;</span>
         <p>Some text in the Modal..</p>
         <fieldset>
-            <form>
-                <form action="#" action="/ui/v1//countries" object="${countries}" method="post">
-                    <p>Id: <input type="text" field="*{id}" /></p>
-                    <p>Name: <input type="text" field="*{name}" /></p>
-                    <p>Is Visa: <input type="checkbox" field="*{visa}" /></p>
-                    <p>Level Tourism: <input type="text" field="*{levelTourism}" /></p>
-                    <p>Climate Types: <input type="text" field="*{climateTypes}" /></p>
-                    <p>Description: <input type="text" field="*{description}" /></p>
+                <form action="/ui/v1/countries/" method="post">
+                    <p>Name: <input type="text" name="name" /></p>
+                    <p>Is Visa: <input type="checkbox" name="visa" /></p>
+                    <p>Level Tourism: <input type="number" required="required" name="levelTourism" /></p>
+                    <p>Climate Types:
+                    <select name="climateTypes">
+                        <#list enums as enum>
+                            <option value="${enum}">${enum}</option>
+                        </#list>
+                    </select>
+                    </p>
+
+                    <p>Description: <input type="text" name="description" /></p>
                     <p><input type="submit" value="Submit" /><input type="reset" value="Reset" />
                 </form>
         </fieldset>
+    </div>
+
+</div>
+
+<div id="myModal1" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="Test1"></p>
     </div>
 
 </div>
@@ -127,12 +144,13 @@
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
 </script>
+
 
 </body>
 </html>

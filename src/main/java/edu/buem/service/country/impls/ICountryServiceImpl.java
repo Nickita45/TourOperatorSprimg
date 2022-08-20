@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ICountryServiceImpl implements ICountryService {
@@ -32,6 +33,7 @@ public class ICountryServiceImpl implements ICountryService {
     }
     @Override
     public Country create(Country country) {
+        //country.setId(UUID.randomUUID().toString());
         country.setCreatedAt(LocalDateTime.now());
         return repository.save(country);
     }
