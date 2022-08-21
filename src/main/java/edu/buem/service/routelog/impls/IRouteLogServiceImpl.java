@@ -1,9 +1,10 @@
-package edu.buem.service.country.impls;
+package edu.buem.service.routelog.impls;
 
 import edu.buem.model.ClimateTypes;
 import edu.buem.model.Country;
-import edu.buem.repository.country.CountryMongoRepository;
-import edu.buem.service.country.interfaces.ICountryService;
+import edu.buem.model.RouteLog;
+import edu.buem.repository.routelog.RouteLogMongoRepository;
+import edu.buem.service.routelog.interfaces.IRouteLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ICountryServiceImpl implements ICountryService {
+public class IRouteLogServiceImpl implements IRouteLogService {
 
     //private LocalDateTime now = LocalDateTime.now();
     private ArrayList<Country> countries = new ArrayList<Country>(Arrays.asList(
@@ -24,7 +25,7 @@ public class ICountryServiceImpl implements ICountryService {
 
     ));
     @Autowired
-    CountryMongoRepository repository;
+    RouteLogMongoRepository repository;
 
     @PostConstruct
     void init()
@@ -32,21 +33,21 @@ public class ICountryServiceImpl implements ICountryService {
         //repository.saveAll(countries);
     }
     @Override
-    public Country create(Country country) {
-        country.setId(UUID.randomUUID().toString());
-        country.setCreatedAt(LocalDateTime.now());
-        return repository.save(country);
+    public RouteLog create(RouteLog routeLog) {
+        routeLog.setId(UUID.randomUUID().toString());
+        routeLog.setCreatedAt(LocalDateTime.now());
+        return repository.save(routeLog);
     }
 
     @Override
-    public Country get(String id) {
+    public RouteLog get(String id) {
         return repository.findById(id).get();
     }
 
     @Override
-    public Country update(Country country) {
-        country.setUpdatedAt(LocalDateTime.now());
-        return repository.save(country);
+    public RouteLog update(RouteLog routeLog) {
+        routeLog.setUpdatedAt(LocalDateTime.now());
+        return repository.save(routeLog);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ICountryServiceImpl implements ICountryService {
     }
 
     @Override
-    public List<Country> getAll() {
+    public List<RouteLog> getAll() {
         return repository.findAll();
     }
 }

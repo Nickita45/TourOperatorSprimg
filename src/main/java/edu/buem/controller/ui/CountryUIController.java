@@ -47,7 +47,7 @@ public class CountryUIController {
         itemToUpdate.setName(itemForm.getName());
         itemToUpdate.setDescription(itemForm.getDescription());
         itemToUpdate.setCreatedAt(itemForm.getCreatedAt());
-        itemToUpdate.setUpdatedAt(LocalDateTime.now());////????????
+        //itemToUpdate.setUpdatedAt(LocalDateTime.now());////????????
 
         itemToUpdate.setClimateTypes(itemForm.getClimateTypes());
         itemToUpdate.setLevelTourism(itemForm.getLevelTourism());
@@ -67,7 +67,7 @@ public class CountryUIController {
         itemtoUpdate.setName(form.getName());
         itemtoUpdate.setDescription(form.getDescription());
         itemtoUpdate.setCreatedAt(itemForm.getCreatedAt());
-        itemtoUpdate.setUpdatedAt(LocalDateTime.now());////????????
+        //itemtoUpdate.setUpdatedAt(LocalDateTime.now());////????????
 
         itemtoUpdate.setClimateTypes(form.getClimateTypes());
         itemtoUpdate.setLevelTourism(form.getLevelTourism());

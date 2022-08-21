@@ -2,7 +2,7 @@ package edu.buem.repository.country;
 
 import edu.buem.model.ClimateTypes;
 import edu.buem.model.Country;
-import edu.buem.model_old.Discount;
+
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -44,6 +44,7 @@ public class CountryFakeRepository {
     public Country save(Country country) {
         country.setId(UUID.randomUUID().toString());
         country.setCreatedAt(LocalDateTime.now());
+
         this.countries.add(country);
         return country;
     }

@@ -1,9 +1,12 @@
-package edu.buem.service.country.impls;
+package edu.buem.service.route.impls;
 
 import edu.buem.model.ClimateTypes;
 import edu.buem.model.Country;
+import edu.buem.model.Route;
 import edu.buem.repository.country.CountryMongoRepository;
-import edu.buem.service.country.interfaces.ICountryService;
+import edu.buem.repository.route.RouteMongoRepository;
+
+import edu.buem.service.route.interfaces.IRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +18,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ICountryServiceImpl implements ICountryService {
+public class IRouteServiceImpl implements IRouteService {
 
     //private LocalDateTime now = LocalDateTime.now();
-    private ArrayList<Country> countries = new ArrayList<Country>(Arrays.asList(
-            new Country("1", "Germany",false, 3, ClimateTypes.CONTINENTAL),
-            new Country("2", "France", false, 6, ClimateTypes.DRY)
+    private ArrayList<Route> countries = new ArrayList<Route>(Arrays.asList(
+
 
     ));
     @Autowired
-    CountryMongoRepository repository;
+    RouteMongoRepository repository;
 
     @PostConstruct
     void init()
@@ -32,21 +34,21 @@ public class ICountryServiceImpl implements ICountryService {
         //repository.saveAll(countries);
     }
     @Override
-    public Country create(Country country) {
-        country.setId(UUID.randomUUID().toString());
-        country.setCreatedAt(LocalDateTime.now());
-        return repository.save(country);
+    public Route create(Route route) {
+        route.setId(UUID.randomUUID().toString());
+        route.setCreatedAt(LocalDateTime.now());
+        return repository.save(route);
     }
 
     @Override
-    public Country get(String id) {
+    public Route get(String id) {
         return repository.findById(id).get();
     }
 
     @Override
-    public Country update(Country country) {
-        country.setUpdatedAt(LocalDateTime.now());
-        return repository.save(country);
+    public Route update(Route route) {
+        route.setUpdatedAt(LocalDateTime.now());
+        return repository.save(route);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class ICountryServiceImpl implements ICountryService {
     }
 
     @Override
-    public List<Country> getAll() {
+    public List<Route> getAll() {
         return repository.findAll();
     }
 }

@@ -1,9 +1,11 @@
-package edu.buem.service.country.impls;
+package edu.buem.service.voucher.impls;
 
 import edu.buem.model.ClimateTypes;
 import edu.buem.model.Country;
+import edu.buem.model.Voucher;
 import edu.buem.repository.country.CountryMongoRepository;
-import edu.buem.service.country.interfaces.ICountryService;
+import edu.buem.repository.voucher.VoucherMongoRepository;
+import edu.buem.service.voucher.interfaces.IVoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ICountryServiceImpl implements ICountryService {
+public class IVoucherServiceImpl implements IVoucherService {
 
     //private LocalDateTime now = LocalDateTime.now();
     private ArrayList<Country> countries = new ArrayList<Country>(Arrays.asList(
@@ -24,7 +26,7 @@ public class ICountryServiceImpl implements ICountryService {
 
     ));
     @Autowired
-    CountryMongoRepository repository;
+    VoucherMongoRepository repository;
 
     @PostConstruct
     void init()
@@ -32,21 +34,21 @@ public class ICountryServiceImpl implements ICountryService {
         //repository.saveAll(countries);
     }
     @Override
-    public Country create(Country country) {
-        country.setId(UUID.randomUUID().toString());
-        country.setCreatedAt(LocalDateTime.now());
-        return repository.save(country);
+    public Voucher create(Voucher voucher) {
+        voucher.setId(UUID.randomUUID().toString());
+        voucher.setCreatedAt(LocalDateTime.now());
+        return repository.save(voucher);
     }
 
     @Override
-    public Country get(String id) {
+    public Voucher get(String id) {
         return repository.findById(id).get();
     }
 
     @Override
-    public Country update(Country country) {
-        country.setUpdatedAt(LocalDateTime.now());
-        return repository.save(country);
+    public Voucher update(Voucher voucher) {
+        voucher.setUpdatedAt(LocalDateTime.now());
+        return repository.save(voucher);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class ICountryServiceImpl implements ICountryService {
     }
 
     @Override
-    public List<Country> getAll() {
+    public List<Voucher> getAll() {
         return repository.findAll();
     }
 }
