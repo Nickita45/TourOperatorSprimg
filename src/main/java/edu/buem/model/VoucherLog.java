@@ -11,17 +11,15 @@ public class VoucherLog {
     private LocalDateTime updatedAt;
 
     private Voucher voucher;
-    private Country country;
     private Client client;
 
-    public VoucherLog(String id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Voucher voucher, Country country, Client client) {
+    public VoucherLog(String id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Voucher voucher, Client client) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.voucher = voucher;
-        this.country = country;
         this.client = client;
     }
 
@@ -76,14 +74,6 @@ public class VoucherLog {
         this.voucher = voucher;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     public Client getClient() {
         return client;
     }
@@ -114,7 +104,6 @@ public class VoucherLog {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", voucher=" + voucher +
-                ", country=" + country +
                 ", client=" + client +
                 '}';
     }

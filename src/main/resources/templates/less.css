@@ -41,7 +41,7 @@ body {
   display:table-cell;
   vertical-align: middle;
   font-size: 15px;
-  line-height: 0.3;
+  /*line-height: 0.3;*/
   letter-spacing: 0.5px;
 }
 #sidebarMenu {

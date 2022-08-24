@@ -34,6 +34,20 @@ public class Client {
         this.discountPercentage = discountPercentage;
     }
 
+    public Client(String id, String name, String description, String firstName, String lastName, String patronymic, String address, String phone, String discountPercentage) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+        this.address = address;
+        this.phone = phone;
+        this.discountPercentage = discountPercentage;
+        this.updatedAt=LocalDateTime.now();
+        this.createdAt=LocalDateTime.now();
+    }
+
     public String getId() {
         return id;
     }

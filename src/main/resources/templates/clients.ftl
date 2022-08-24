@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Countries</title>
+    <title>Clients</title>
     <#include "less.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
@@ -50,7 +50,6 @@
         }
         td {
             vertical-align: middle;
-
         }
     </style>
 </head>
@@ -77,37 +76,44 @@
     <div class="mainInner">
         <div>
 
-    <h3>Country information</h3>
-    <table class="table table-success table-striped" style="vertical-align: center; " border="3">
+    <h3>Client information</h3>
+    <table class="table table-success table-striped" style="vertical-align: center" border="3">
         <tr style="font-weight: bold">
             <th> ID</th>
             <th> Name</th>
-            <th> Is Visa</th>
-            <th> Level Tourism</th>
-            <th> Climate Types</th>
+            <th> First Name</th>
+            <th> Last Name</th>
+            <th> Patronymic</th>
+            <th> Address</th>
+            <th> Phone</th>
+            <th> Discount %</th>
             <th> Description</th>
             <th> CreatedAt</th>
             <th> UpdatedAt</th>
             <th> DELETE</th>
             <th> UPDATE</th>
         </tr>
-        <#list countries as item>
+        <#list clients as item>
             <tr>
-                <td align="center">${item.id}</td>
-                <td align="center">${item.name}</td>
-                <td align="center">${item.visa?string('yes', 'no')}</td>
-                <td>${item.levelTourism}</td>
-                <td>${item.climateTypes}</td>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.firstName}</td>
+                <td>${item.lastName}</td>
+                <td>${item.patronymic}</td>
+                <td>${item.address}</td>
+                <td>${item.phone}</td>
+                <td>${item.discountPercentage}</td>
+
                 <td>${item.description}</td>
                 <td>${item.createdAt}</td>
                 <td>${item.updatedAt?if_exists}</td>
-                <td><a class="btn btn-info" href="/ui/v1/countries/del/${item.id}" >Delete</a></td>
-                <td><a class="btn btn-warning" href="/ui/v1/countries/edit/${item.id}">Update</a></td>
+                <td><a class="btn btn-info" href="/ui/v1/clients/del/${item.id}" >Delete</a></td>
+                <td><a class="btn btn-warning" href="/ui/v1/clients/edit/${item.id}">Update</a></td>
             </tr>
         </#list>
     </table>
 
-    <h4>Add new Country</h4>
+    <h4>Add new Client</h4>
 
     <!-- Trigger/Open The Modal -->
     <button id="myBtn" class="btn btn-success">Click to add</button>
@@ -125,28 +131,20 @@
     <div class="modal-content">
 
         <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Add new country</h4>
+            <h4 class="modal-title" id="exampleModalLabel">Add new client</h4>
             <span class="close">&times;</span>
         </div>
             <fieldset>
-                <form action="/ui/v1/countries/" method="post">
+                <form action="/ui/v1/clients/" method="post">
                     <div class="modal-body">
                     <label class="col-form-label">Name:</label>
                         <input type="text" name="name" class="form-control"/>
-                        <input type="checkbox" name="visa" value="1" class="form-check-input">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Is Visa
-                        </label>
-                    <p>Level Tourism: <input type="number" required="required" name="levelTourism" class="form-control"/></p>
-                    <p>Climate Types:
-                        <select name="climateTypes" class="form-select">
-                            <#list enums as enum>
-                                <option value="${enum}">${enum}</option>
-                            </#list>
-                        </select>
-                    </p>
-
-                    <p>Description: <input type="text" name="description" class="form-control"/></p>
+                        <p>First Name: <input type="text" name="firstName" class="form-control" required="required"/></p>
+                        <p>Last Name: <input type="text" name="lastName" class="form-control" required="required"/></p>
+                        <p>Patronymic: <input type="text" name="patronymic" class="form-control"/></p>
+                        <p>Adress: <input type="text" name="address" class="form-control"/></p>
+                        <p>Phone: <input type="text" name="phone" class="form-control"/></p>
+                        <p>Description: <input type="text" name="description" class="form-control"/></p>
 
                     </div>
                     <div class="modal-footer">

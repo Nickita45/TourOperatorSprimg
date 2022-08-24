@@ -28,26 +28,20 @@
     </div>
 
     <div id='center' class="main center">
-        <h3 align="center">Change client "${item.name}"</h3>
+        <h3 align="center">Change country "${item.name}"</h3>
         <div style="display: flex; margin: 0" >
             <div style="min-height: 10em; display: table-cell; margin-left: auto;margin-right: auto; width: 25em;" class="shadow p-3 mb-5 bg-body rounded" >
     <fieldset>
         <form action="" method="post">
             <p><input type="hidden" name="id" value="${item.id}"></p>
             <p>Name: <input type="text" name="name" value="${item.name}" class="form-control"/></p>
-            <p>Is Visa: <input type="checkbox" name="visa" value="${item.visa?string('yes', 'no')}" class="form-check-input"/></p>
-            <p>Level Tourism: <input type="number" required="required" name="levelTourism" value="${item.levelTourism}" class="form-control"/></p>
-            <p>Climate Types:
-                <select name="climateTypes" class="form-select">
-                    <#list enums as enum>
-                        <#if "${item.climateTypes}" == enum>
-                        <option value="${enum}" selected>${enum}</option>
-                        <#else>
-                        <option value="${enum}">${enum}</option>
-                        </#if>
-                    </#list>
-                </select>
-            </p>
+
+            <p>First Name: <input type="text" name="firstName" class="form-control" value="${item.firstName}" required="required"/></p>
+            <p>Last Name: <input type="text" name="lastName" class="form-control" value="${item.lastName}" required="required"/></p>
+            <p>Patronymic: <input type="text" name="patronymic" class="form-control" value="${item.patronymic}"/></p>
+            <p>Adress: <input type="text" name="address" class="form-control" value="${item.address}"/></p>
+            <p>Phone: <input type="text" name="phone" class="form-control" value="${item.phone}"/></p>
+
 
             <p>Description: <input type="text" name="description" value="${item.description}" class="form-control"/></p>
             <p><input type="submit" value="Submit" class="btn btn-primary"/>
