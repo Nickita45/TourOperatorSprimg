@@ -12,5 +12,5 @@ public interface IClientService {
     Client update(Client discount);
     void delete(String id);
     List<Client> getAll();
-
+    List<String> getFullName();
 }

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 public class IClientServiceImpl implements IClientService {
     private ArrayList<Client> clients = new ArrayList<Client>(Arrays.asList(
@@ -56,4 +58,15 @@ public class IClientServiceImpl implements IClientService {
     public List<Client> getAll() {
         return repository.findAll();
     }
+
+    @Override
+    public List<String> getFullName() {
+        var names = repository.findAll()
+                .stream()
+                .map(client -> String.format("%s_%s_%s", client.getFirstName(), client.getLastName(),client.getPatronymic()))
+                .collect(Collectors.toList());
+        return names;
+    }
+
+
 }

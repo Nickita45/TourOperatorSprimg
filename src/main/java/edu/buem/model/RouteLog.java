@@ -10,12 +10,12 @@ public class RouteLog {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    private Hotel hotel;
+    private Hotels hotel;
     private Country country;
     private Route route;
     private Client client;
 
-    public RouteLog(String id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Hotel hotel, Country country, Route route, Client client) {
+    public RouteLog(String id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Hotels hotel, Country country, Route route, Client client) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -70,11 +70,11 @@ public class RouteLog {
         this.updatedAt = updatedAt;
     }
 
-    public Hotel getHotel() {
+    public Hotels getHotel() {
         return hotel;
     }
 
-    public void setHotel(Hotel hotel) {
+    public void setHotel(Hotels hotel) {
         this.hotel = hotel;
     }
 
