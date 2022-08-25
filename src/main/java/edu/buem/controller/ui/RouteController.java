@@ -33,7 +33,7 @@ public class RouteController {
     {
         var countries = serviceCountry.getAll().stream().map(Country::getName).collect(Collectors.toList());
         var clients = serviceClient.getFullName();
-        System.out.printf(serviceIRouteLog.getAll().get(0).toString());
+        //System.out.printf(serviceIRouteLog.getAll().get(0).toString());
         model.addAttribute("routes",serviceIRouteLog.getAll());
         model.addAttribute("countries", countries);
         model.addAttribute("clients", clients);
@@ -80,8 +80,8 @@ public class RouteController {
     }
     @GetMapping(value = "/edit/{id}")
     public String updateItem(Model model, @PathVariable("id") String id){
-        Route itemForm = service.get(id);
-        Route itemToUpdate = new Route();
+        RouteLog itemForm = serviceIRouteLog.get(id);
+        RouteLog itemToUpdate = new RouteLog();
 
         itemToUpdate.setId(itemForm.getId());
         itemToUpdate.setName(itemForm.getName());
@@ -89,29 +89,55 @@ public class RouteController {
         itemToUpdate.setCreatedAt(itemForm.getCreatedAt());
         //itemToUpdate.setUpdatedAt(LocalDateTime.now());////????????
 
-        itemToUpdate.setCost(itemForm.getCost());
-        itemToUpdate.setDuration(itemForm.getDuration());
+        //itemToUpdate.setCost(itemForm.getCost());
+        //itemToUpdate.setDuration(itemForm.getDuration());
 
-        model.addAttribute("item", itemToUpdate);
+        var countries = serviceCountry.getAll().stream().map(Country::getName).collect(Collectors.toList());
+        var clients = serviceClient.getFullName();
+
+        model.addAttribute("item", itemForm);
+        model.addAttribute("countries", countries);
+        model.addAttribute("clients", clients);
+        model.addAttribute("hotels", Hotels.values());
         //model.addAttribute("enums", ClimateTypes.values());
         return "updateRoute";
     }
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String updateCountry( @ModelAttribute("form") Route form){
+    public String updateCountry( @ModelAttribute("form") RouteClientCountry form){
         //System.out.println(form);
 
-        Route itemForm = service.get(form.getId());
-        Route itemtoUpdate = new Route();
+        RouteLog itemForm = serviceIRouteLog.get(form.getId());
+
+
+        RouteLog itemtoUpdate = new RouteLog();
         itemtoUpdate.setId(form.getId());
         itemtoUpdate.setName(form.getName());
         itemtoUpdate.setDescription(form.getDescription());
         itemtoUpdate.setCreatedAt(itemForm.getCreatedAt());
         //itemtoUpdate.setUpdatedAt(LocalDateTime.now());////????????
 
-        itemtoUpdate.setCost(itemForm.getCost());
-        itemtoUpdate.setDuration(itemForm.getDuration());
+        List<String> names = Arrays.stream(form.getClients().split("_")).toList();
+        Client client = serviceClient.getAll().
+                stream().
+                filter(client1 -> client1.getFirstName().equals(names.get(0))
+                        && client1.getLastName().equals(names.get(1))
+                        && client1.getPatronymic().equals(names.get(2))
+                ).findFirst().get();
+        Country country = serviceCountry.getAll().stream()
+                .filter(country1 -> country1.getName().equals(form.getCountries()))
+                .findFirst().get();
+        Route routeLog = itemForm.getRoute();
+        routeLog.setCost(form.getCost());
+        routeLog.setDuration(form.getDuration());
 
-        service.update(itemtoUpdate);
+        itemtoUpdate.setCountry(country);
+        itemtoUpdate.setClient(client);
+        itemtoUpdate.setHotel(form.getHotel());
+        itemtoUpdate.setRoute(routeLog);
+
+        service.update(routeLog);
+
+        serviceIRouteLog.update(itemtoUpdate);
 
         return "redirect:/ui/v1/routes/";
     }

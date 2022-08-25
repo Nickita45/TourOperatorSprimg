@@ -6,7 +6,7 @@ import edu.buem.model.Hotels;
 import java.time.LocalDateTime;
 
 public class RouteClientCountry {
-
+    private String id;
     private String name;
     private String description;
 
@@ -16,7 +16,8 @@ public class RouteClientCountry {
     private String clients;
     private Hotels hotel;
 
-    public RouteClientCountry(String name, String description, Integer cost, Integer duration, String countries, String clients, Hotels hotel) {
+    public RouteClientCountry(String id, String name, String description, Integer cost, Integer duration, String countries, String clients, Hotels hotel) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.cost = cost;
@@ -85,10 +86,19 @@ public class RouteClientCountry {
         this.clients = clients;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "RouteClientCountry{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", cost=" + cost +
                 ", duration=" + duration +
