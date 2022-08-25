@@ -59,6 +59,12 @@ public class IClientServiceImpl implements IClientService {
         listRoutes.stream().forEach(routeLog -> {routeLog.setClient(client);});
         repositoryRouteLog.saveAll(listRoutes);
 
+        var listVouchers = repositoryVoucherLog.findAll().stream()
+                .filter(routeLog -> routeLog.getClient().getId().equals(client.getId()))
+                .collect(Collectors.toList());
+        listVouchers.stream().forEach(routeLog -> {routeLog.setClient(client);});
+        repositoryVoucherLog.saveAll(listVouchers);
+
         return repository.save(client);
     }
 

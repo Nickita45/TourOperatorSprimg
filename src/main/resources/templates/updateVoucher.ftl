@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Routelog update</title>
+    <title>Voucherlog update</title>
     <#include "less.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
@@ -28,30 +28,17 @@
     </div>
 
     <div id='center' class="main center">
-        <h3 align="center">Change route log "${item.route.name}"</h3>
+        <h3 align="center">Change voucherlog "${item.voucher.name}"</h3>
         <div style="display: flex; margin: 0" >
             <div style="min-height: 10em; display: table-cell; margin-left: auto;margin-right: auto; width: 25em;" class="shadow p-3 mb-5 bg-body rounded" >
     <fieldset>
         <form action="" method="post">
             <p><input type="hidden" name="id" value="${item.id}"></p>
-            <p>Name: <input type="text" name="name" value="${item.route.name}" class="form-control"/></p>
-            <p>Cost: <input type="number" name="cost" class="form-control" value="${item.route.cost}" required="required"/></p>
-            <p>Duration: <input type="number" name="duration" class="form-control" value="${item.route.duration}" required="required"/></p>
-            <p>Countries:
-                <select name="countries" class="form-select">
-                    <#list countries as country>
-                        <#if "${item.country.name}" == country>
-                            <option value="${country}" selected>${country}</option>
-                        <#else>
-                            <option value="${country}">${country}</option>
-                        </#if>
-                    </#list>
-                </select>
-            </p>
+            <p>Name: <input type="text" name="name" value="${item.voucher.name}" class="form-control"/></p>
             <p>Clients:
                 <select name="clients" class="form-select">
                     <#list clients as client>
-                        <#if "${item.client.firstName}_${item.client.lastName}_${item.client.patronymic}" == client>
+                        <#if "${item.client.name}" == client>
                             <option value="${client}" selected>${client}</option>
                         <#else>
                             <option value="${client}">${client}</option>
@@ -59,20 +46,26 @@
                     </#list>
                 </select>
             </p>
-            <p>Hotel:
-                <select name="hotel" class="form-select">
-                    <#list hotels as hotel>
-                        <#if "${item.hotel}" == hotel>
-                            <option value="${hotel}" selected>${hotel}</option>
+            <p>Routes:
+                <select name="routes" class="form-select">
+                    <#list routes as route>
+                        <#if "${route.client.name}" == item.client.name>
+                        <option selected value="${route.country.name}_LevelTourism:${route.country.levelTourism}_Cost:${route.route.cost}_Climate:${route.country.climateTypes}_Duration:${route.route.duration}">
+                            ${route.country.name}_LevelTourism:${route.country.levelTourism}_Cost:${route.route.cost}_Climate:${route.country.climateTypes}_Duration:${route.route.duration}
+                        </option>
                         <#else>
-                            <option value="${hotel}">${hotel}</option>
+                            <option value="${route.country.name}_LevelTourism:${route.country.levelTourism}_Cost:${route.route.cost}_Climate:${route.country.climateTypes}_Duration:${route.route.duration}">
+                                ${route.country.name}_LevelTourism:${route.country.levelTourism}_Cost:${route.route.cost}_Climate:${route.country.climateTypes}_Duration:${route.route.duration}
+                            </option>
                         </#if>
                     </#list>
                 </select>
             </p>
 
+            <p>Number of vouchers: <input type="number" required="required" name="number" class="form-control" value="${item.voucher.totalCost}"/></p>
 
-            <p>Description: <input type="text" name="description" value="${item.route.description}" class="form-control"/></p>
+
+            <p>Description: <input type="text" name="description" value="${item.voucher.description}" class="form-control"/></p>
             <p><input type="submit" value="Submit" class="btn btn-primary"/>
                 <input type="reset" value="Reset" class="btn btn-secondary"/>
         </form>

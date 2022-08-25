@@ -22,13 +22,14 @@
             <li><a href="/">HOME</a></li>
             <li><a href="/ui/v1/countries/">country</a></li>
             <li><a href="/ui/v1/clients/">clients</a></li>
-            <li><a href="https://www.youtube.com/channel/UCDfZM0IK6RBgud8HYGFXAJg" target="_blank">YouTube</a></li>
-            <li><a href="https://www.linkedin.com/in/plavookac/" target="_blank">Linkedin</a></li>
+            <li><a href="/ui/v1/routes/">routes</a></li>
+            <li><a href="/ui/v1/vouchers/">vouchers</a></li>
+            <li><a href="/ui/v1/umlDiagram/">uml diagram</a></li>
         </ul>
     </div>
 
     <div id='center' class="main center">
-        <h3 align="center">Change country "${item.name}"</h3>
+        <h3 align="center">Change client "${item.name}"</h3>
         <div style="display: flex; margin: 0" >
             <div style="min-height: 10em; display: table-cell; margin-left: auto;margin-right: auto; width: 25em;" class="shadow p-3 mb-5 bg-body rounded" >
     <fieldset>

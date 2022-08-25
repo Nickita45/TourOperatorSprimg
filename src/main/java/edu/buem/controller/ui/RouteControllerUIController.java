@@ -129,6 +129,7 @@ public class RouteControllerUIController {
         Route routeLog = itemForm.getRoute();
         routeLog.setCost(form.getCost());
         routeLog.setDuration(form.getDuration());
+        routeLog.setName(form.getName());
 
         itemtoUpdate.setCountry(country);
         itemtoUpdate.setClient(client);

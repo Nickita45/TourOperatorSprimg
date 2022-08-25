@@ -102,65 +102,63 @@ public class VoucherUIController {
         serviceVoucherLog.create(voucherLog);
 
         serviceClient.updatePercentage(client);
-//
-//        Route route1 = new Route();
-//        route1.setDuration(route.getDuration());
-//        route1.setCost(route.getCost());
-//        route1.setName(route.getName());
-//        route1.setDescription(route.getDescription());
-//
-//        service.create(route1);
-//
-
-//        Country country = serviceCountry.getAll().stream()
-//                .filter(country1 -> country1.getName().equals(route.getCountries()))
-//                .findFirst().get();
-//
-//        RouteLog routeLog = new RouteLog();
-//        routeLog.setRoute(route1);
-//        routeLog.setClient(client);
-//        routeLog.setCountry(country);
-//        routeLog.setHotel(route.getHotel());
-//        serviceIRouteLog.create(routeLog);
 
         return "redirect:/ui/v1/vouchers/";
     }
     @GetMapping(value = "/edit/{id}")
     public String updateItem(Model model, @PathVariable("id") String id){
-//        RouteLog itemForm = serviceIRouteLog.get(id);
-//        RouteLog itemToUpdate = new RouteLog();
-//
-//        itemToUpdate.setId(itemForm.getId());
-//        itemToUpdate.setName(itemForm.getName());
-//        itemToUpdate.setDescription(itemForm.getDescription());
-//        itemToUpdate.setCreatedAt(itemForm.getCreatedAt());
-//        //itemToUpdate.setUpdatedAt(LocalDateTime.now());////????????
-//
-//        //itemToUpdate.setCost(itemForm.getCost());
-//        //itemToUpdate.setDuration(itemForm.getDuration());
-//
-//        var countries = serviceCountry.getAll().stream().map(Country::getName).collect(Collectors.toList());
-//        var clients = serviceClient.getFullName();
-//
-//        model.addAttribute("item", itemForm);
-//        model.addAttribute("countries", countries);
-//        model.addAttribute("clients", clients);
+
+       VoucherLog itemForm = serviceVoucherLog.get(id);
+
+        var clients = serviceClient.getFullName();
+        System.out.printf(itemForm.getName());
+
+
+        //model.addAttribute("countries", countries);
+        model.addAttribute("routes", serciveRoute.getAll());
+        model.addAttribute("clients", clients);
+        model.addAttribute("item",itemForm);
 //        model.addAttribute("hotels", Hotels.values());
         //model.addAttribute("enums", ClimateTypes.values());
-        return "updateRoute";
+        return "updateVoucher";
     }
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String updateCountry( @ModelAttribute("form") RouteClientCountry form){
+    public String updateCountry( @ModelAttribute("form") RoutesClient form){
         //System.out.println(form);
 
-//        formRouteLog itemForm = serviceIRouteLog.get(form.getId());
+
+        VoucherLog itemForm = serviceVoucherLog.get(form.getId());
 //
 //
-//        RouteLog itemtoUpdate = new RouteLog();
-//        itemtoUpdate.setId(form.getId());
-//        itemtoUpdate.setName(form.getName());
-//        itemtoUpdate.setDescription(form.getDescription());
-//        itemtoUpdate.setCreatedAt(itemForm.getCreatedAt());
+          VoucherLog itemtoUpdate = new VoucherLog();
+          itemtoUpdate.setId(form.getId());
+          itemtoUpdate.setName(form.getName());
+          itemtoUpdate.setDescription(form.getDescription());
+          itemtoUpdate.setCreatedAt(itemForm.getCreatedAt());
+
+        List<String> names = Arrays.stream(form.getClients().split("_")).toList();
+        Client client = serviceClient.getAll().
+                stream().
+                filter(client1 -> client1.getFirstName().equals(names.get(0))
+                        && client1.getLastName().equals(names.get(1))
+                        && client1.getPatronymic().equals(names.get(2))
+                ).findFirst().get();
+
+        List<String> routes = Arrays.stream(form.getRoutes().split("_")).toList();
+        System.out.printf(routes.toString());
+        RouteLog routeLog = serciveRoute.getAll().
+                stream().
+                filter(routeLog1 -> routeLog1.getCountry().getName().equals(routes.get(0))
+                        && routeLog1.getCountry().getLevelTourism()==Integer.parseInt(routes.get(1).replace("LevelTourism:",""))
+                        && routeLog1.getRoute().getCost()==Integer.parseInt(routes.get(2).replace("Cost:",""))
+                        && routeLog1.getCountry().getClimateTypes().toString().equals(routes.get(3).replace("Climate:",""))
+                        && routeLog1.getRoute().getDuration().toString().equals(routes.get(4).replace("Duration:","")))
+                .findFirst().get();
+
+        itemtoUpdate.setClient(client);
+        Voucher voucher = itemForm.getVoucher();
+        voucher.setNumber(form.getNumber());
+        itemtoUpdate.setVoucher(voucher);
 //        //itemtoUpdate.setUpdatedAt(LocalDateTime.now());////????????
 //
 //        List<String> names = Arrays.stream(form.getClients().split("_")).toList();
@@ -182,9 +180,9 @@ public class VoucherUIController {
 //        itemtoUpdate.setHotel(form.getHotel());
 //        itemtoUpdate.setRoute(routeLog);
 //
-//        service.update(routeLog);
+        service.update(voucher);
 //
-//        serviceIRouteLog.update(itemtoUpdate);
+        serviceVoucherLog.update(itemtoUpdate);
 
         return "redirect:/ui/v1/vouchers/";
     }
