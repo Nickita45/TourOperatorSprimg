@@ -4,6 +4,8 @@ import edu.buem.model.Client;
 import edu.buem.model.ClimateTypes;
 import edu.buem.model.Country;
 import edu.buem.repository.client.ClientMongoRepository;
+import edu.buem.repository.routelog.RouteLogMongoRepository;
+import edu.buem.repository.voucherlog.VoucherLogMongoRepository;
 import edu.buem.service.client.interfaces.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,10 @@ public class IClientServiceImpl implements IClientService {
     }
     @Autowired
     ClientMongoRepository repository;
+    @Autowired
+    RouteLogMongoRepository repositoryRouteLog;
+    @Autowired
+    VoucherLogMongoRepository repositoryVoucherLog;
     @Override
     public Client create(Client client) {
         client.setId(UUID.randomUUID().toString());
@@ -46,6 +52,13 @@ public class IClientServiceImpl implements IClientService {
     @Override
     public Client update(Client client) {
         client.setUpdatedAt(LocalDateTime.now());
+
+        var listRoutes = repositoryRouteLog.findAll().stream()
+                .filter(routeLog -> routeLog.getClient().getId().equals(client.getId()))
+                .collect(Collectors.toList());
+        listRoutes.stream().forEach(routeLog -> {routeLog.setClient(client);});
+        repositoryRouteLog.saveAll(listRoutes);
+
         return repository.save(client);
     }
 
@@ -66,6 +79,15 @@ public class IClientServiceImpl implements IClientService {
                 .map(client -> String.format("%s_%s_%s", client.getFirstName(), client.getLastName(),client.getPatronymic()))
                 .collect(Collectors.toList());
         return names;
+    }
+
+    @Override
+    public void updatePercentage(Client client) {
+        int countBuys = 4 + (int) repositoryVoucherLog.findAll().stream()
+                .filter(voucherLog -> voucherLog.getClient().getId().equals(client.getId()))
+                .count();
+        client.setDiscountPercentage(""+countBuys);
+        repository.save(client);
     }
 
 

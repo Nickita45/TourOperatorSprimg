@@ -13,4 +13,6 @@ public interface IClientService {
     void delete(String id);
     List<Client> getAll();
     List<String> getFullName();
+
+    void updatePercentage(Client client);
 }

@@ -3,6 +3,7 @@ package edu.buem.service.country.impls;
 import edu.buem.model.ClimateTypes;
 import edu.buem.model.Country;
 import edu.buem.repository.country.CountryMongoRepository;
+import edu.buem.repository.routelog.RouteLogMongoRepository;
 import edu.buem.service.country.interfaces.ICountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ICountryServiceImpl implements ICountryService {
@@ -25,6 +27,8 @@ public class ICountryServiceImpl implements ICountryService {
     ));
     @Autowired
     CountryMongoRepository repository;
+    @Autowired
+    RouteLogMongoRepository repositoryRouteLog;
 
     @PostConstruct
     void init()
@@ -46,6 +50,13 @@ public class ICountryServiceImpl implements ICountryService {
     @Override
     public Country update(Country country) {
         country.setUpdatedAt(LocalDateTime.now());
+
+        var listRoutes = repositoryRouteLog.findAll().stream()
+                .filter(routeLog -> routeLog.getCountry().getId().equals(country.getId()))
+                .collect(Collectors.toList());
+        listRoutes.stream().forEach(routeLog -> {routeLog.setCountry(country);});
+        repositoryRouteLog.saveAll(listRoutes);
+
         return repository.save(country);
     }
 

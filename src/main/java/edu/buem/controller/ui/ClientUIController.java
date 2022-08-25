@@ -73,11 +73,11 @@ public class ClientUIController {
         itemtoUpdate.setCreatedAt(itemForm.getCreatedAt());
         //itemtoUpdate.setUpdatedAt(LocalDateTime.now());////????????
 
-        itemtoUpdate.setFirstName(itemForm.getFirstName());
-        itemtoUpdate.setLastName(itemForm.getLastName());
-        itemtoUpdate.setPatronymic(itemForm.getPatronymic());
-        itemtoUpdate.setAddress(itemForm.getAddress());
-        itemtoUpdate.setPhone(itemForm.getPhone());
+        itemtoUpdate.setFirstName(form.getFirstName());
+        itemtoUpdate.setLastName(form.getLastName());
+        itemtoUpdate.setPatronymic(form.getPatronymic());
+        itemtoUpdate.setAddress(form.getAddress());
+        itemtoUpdate.setPhone(form.getPhone());
         itemtoUpdate.setDiscountPercentage(itemForm.getDiscountPercentage());
 
         service.update(itemtoUpdate);

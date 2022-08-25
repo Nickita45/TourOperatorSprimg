@@ -12,8 +12,10 @@ public class Voucher {
 
     private Integer number;
     private LocalDateTime start;
+    private Double totalCost;
 
-    public Voucher(String id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Integer number, LocalDateTime start) {
+
+    public Voucher(String id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Integer number, LocalDateTime start, Double totalCost) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -21,6 +23,7 @@ public class Voucher {
         this.updatedAt = updatedAt;
         this.number = number;
         this.start = start;
+        this.totalCost = totalCost;
     }
 
     public Voucher() {
@@ -95,6 +98,14 @@ public class Voucher {
         return Objects.hash(id);
     }
 
+    public Double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
+    }
+
     @Override
     public String toString() {
         return "Voucher{" +
@@ -105,6 +116,7 @@ public class Voucher {
                 ", updatedAt=" + updatedAt +
                 ", number=" + number +
                 ", start=" + start +
+                ", totalCost=" + totalCost +
                 '}';
     }
 }

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Countries</title>
+    <title>Vouchers</title>
     <#include "less.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
@@ -29,9 +29,9 @@
         .modal-content {
             background-color: #fefefe;
             margin: auto;
-            padding: 20em;
+            padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 40em;
         }
 
         /* The Close Button */
@@ -50,7 +50,6 @@
         }
         td {
             vertical-align: middle;
-
         }
     </style>
 </head>
@@ -77,37 +76,49 @@
     <div class="mainInner">
         <div>
 
-    <h3>Country information</h3>
-    <table class="table table-success table-striped" style="vertical-align: center; " border="3">
+    <h3>Voucher information</h3>
+    <table class="table table-success table-striped" style="vertical-align: center" border="3">
         <tr style="font-weight: bold">
             <th> ID</th>
             <th> Name</th>
-            <th> Is Visa</th>
-            <th> Level Tourism</th>
-            <th> Climate Types</th>
+            <th> Client</th>
+            <th> Total Cost</th>
+            <th> Start Time</th>
+            <th> Count</th>
+
+            <th> Country</th>
+
             <th> Description</th>
             <th> CreatedAt</th>
             <th> UpdatedAt</th>
             <th> DELETE</th>
             <th> UPDATE</th>
         </tr>
-        <#list countries as item>
+        <#list vouchers as item>
             <tr>
-                <td align="center">${item.id}</td>
-                <td align="center">${item.name}</td>
-                <td align="center">${item.visa?string('yes', 'no')}</td>
-                <td>${item.levelTourism}</td>
-                <td>${item.climateTypes}</td>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+
+                <td>${item.client.firstName}_${item.client.lastName}_${item.client.patronymic}</td>
+
+                <td>${item.voucher.totalCost}</td>
+                <td>${item.voucher.start}</td>
+                <td>${item.voucher.number}</td>
+                <#list routes as route>
+                    <#if route.client.id == item.client.id>
+                        <td>${route.country.name}</td>
+                    </#if>
+                </#list>
                 <td>${item.description}</td>
                 <td>${item.createdAt}</td>
                 <td>${item.updatedAt?if_exists}</td>
-                <td><a class="btn btn-info" href="/ui/v1/countries/del/${item.id}" >Delete</a></td>
-                <td><a class="btn btn-warning" href="/ui/v1/countries/edit/${item.id}">Update</a></td>
+                <td><a class="btn btn-info" href="/ui/v1/vouchers/del/${item.id}" >Delete</a></td>
+                <td><a class="btn btn-warning" href="/ui/v1/vouchers/edit/${item.id}">Update</a></td>
             </tr>
         </#list>
     </table>
 
-    <h4>Add new Country</h4>
+    <h4>Add new Voucher</h4>
 
     <!-- Trigger/Open The Modal -->
     <button id="myBtn" class="btn btn-success">Click to add</button>
@@ -125,28 +136,34 @@
     <div class="modal-content">
 
         <div class="modal-header">
-            <h4 class="modal-title" id="exampleModalLabel">Add new country</h4>
+            <h4 class="modal-title" id="exampleModalLabel">Add new voucher</h4>
             <span class="close">&times;</span>
         </div>
             <fieldset>
-                <form action="/ui/v1/countries/" method="post">
+                <form action="/ui/v1/vouchers/" method="post">
                     <div class="modal-body">
                     <label class="col-form-label">Name:</label>
-                        <input type="text" name="name" class="form-control"/>
-                        <input type="checkbox" name="visa" value="1" class="form-check-input">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Is Visa
-                        </label>
-                    <p>Level Tourism: <input type="number" required="required" name="levelTourism" class="form-control"/></p>
-                    <p>Climate Types:
-                        <select name="climateTypes" class="form-select">
-                            <#list enums as enum>
-                                <option value="${enum}">${enum}</option>
-                            </#list>
-                        </select>
-                    </p>
+                        <input type="text" name="name" class="form-control" value=""/>
 
-                    <p>Description: <input type="text" name="description" class="form-control"/></p>
+                        <p>Clients:
+                            <select name="clients" class="form-select">
+                                <#list clients as client>
+                                    <option value="${client}">${client}</option>
+                                </#list>
+                            </select>
+                        </p>
+                        <p>Routes:
+                            <select name="routes" class="form-select">
+                                <#list routes as route>
+                                    <option value="${route.country.name}_LevelTourism:${route.country.levelTourism}_Cost:${route.route.cost}_Climate:${route.country.climateTypes}_Duration:${route.route.duration}">
+                                        ${route.country.name}_LevelTourism:${route.country.levelTourism}_Cost:${route.route.cost}_Climate:${route.country.climateTypes}_Duration:${route.route.duration}
+                                    </option>
+                                </#list>
+                            </select>
+                        </p>
+
+                        <p>Number of vouchers:: <input type="text" name="number" class="form-control" value=""/></p>
+                        <p>Description: <input type="text" name="description" class="form-control" value=""/></p>
 
                     </div>
                     <div class="modal-footer">

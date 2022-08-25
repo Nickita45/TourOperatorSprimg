@@ -6,7 +6,6 @@ import edu.buem.service.client.impls.IClientServiceImpl;
 import edu.buem.service.country.impls.ICountryServiceImpl;
 import edu.buem.service.route.impls.IRouteServiceImpl;
 import edu.buem.service.routelog.impls.IRouteLogServiceImpl;
-import edu.buem.service.routelog.interfaces.IRouteLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RequestMapping("/ui/v1/routes/")
 @Controller
-public class RouteController {
+public class RouteControllerUIController {
 
     @Autowired
     IRouteServiceImpl service;
@@ -43,6 +42,7 @@ public class RouteController {
     @GetMapping("/del/{id}")
     public String deleteById(@PathVariable("id") String id)
     {
+        service.delete(serviceIRouteLog.get(id).getRoute().getId());
         serviceIRouteLog.delete(id);
         return "redirect:/ui/v1/routes/";
     }
